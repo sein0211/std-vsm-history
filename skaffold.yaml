@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2beta18
+kind: Config
+metadata:
+  name: std-vsm-history
+build:
+  artifacts:
+    - image: std-vsm-history
+      jib: {}
+deploy:
+  kustomize:
+    paths:
+      - kubernetes-manifests/overlays/dev/kr

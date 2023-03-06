@@ -1,0 +1,10 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name:  {{ template "std-vsm-history.fullname" . }}
+spec:
+  minAvailable: {{ .Values.autoscaling.minReplicas }}
+  selector:
+    matchLabels:
+      app: {{ template "std-vsm-history.name" . }}
+      release: {{ .Release.Name }}

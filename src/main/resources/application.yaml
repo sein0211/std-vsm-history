@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: std-vsm-history
+  namespace: vehiclestatus
+  cloud:
+    bus:
+      destination: std-vsm-history
+      ack:
+        destination-service: std-vsm-history
+  async:
+    core-pool-size: 200
+    max-pool-size: 500
+    queue-capacity-size: 1
+    keep-alive-second: 15
+  svchub:
+    host: silb.us-h-prd.svchub.connected-car.io
+    port: 32010
+    pre-step:
+      path: /api/v3/servicehub/service/register
+      unit: vss
+    vehicleId:
+      path: /api/v3/servicehub/vehicle/vehicleId
+  elasticsearch:
+#    host: 172.16.66.208
+#    port: 9200
+#    userName: elastic
+#    password: Ccs2022!!
+    host: 172.25.67.218
+    port: 9200
+    userName: msa
+    password: devOps!23
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    com.hkmc.vsmhistory: DEBUG
+    org:
+      elasticsearch:
+        client:
+          RestClient: ERROR # WARN 로깅 제거

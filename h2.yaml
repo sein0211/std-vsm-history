@@ -1,0 +1,193 @@
+# Template Version
+version: 1.0.0
+# Deploy strategy
+strategy: BLUE-GREEN
+# Source Type
+sources:
+  - name: package
+    type: helm
+
+# Resource Spec
+specs:
+  - name: spec-stg
+    source: package
+    replicas:
+      min: 1
+      max: 1
+    resources:
+      requestsCpu: 500m
+      requestsMem: 2Gi
+      limitsCpu: 1000m
+      limitsMem: 2Gi
+    jvmOptions:
+      initialRAMPercent: 50
+      maxRAMPercent: 75
+      metaspaceSize: 64
+      maxMetaspaceSize: 128
+    service:
+      type: ClusterIP
+      port: 8080
+  - name: spec-prd
+    source: package
+    replicas:
+      min: 3
+      max: 10
+    resources:
+      requestsCpu: 500m
+      requestsMem: 2Gi
+      limitsCpu: 1000m
+      limitsMem: 2Gi
+    jvmOptions:
+      initialRAMPercent: 50
+      maxRAMPercent: 75
+      metaspaceSize: 64
+      maxMetaspaceSize: 128
+    service:
+      type: ClusterIP
+      port: 8080
+
+# Deploy Pipeline
+deployments:
+  - region: us-west
+    targets:
+      - cluster: us-hmc-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: ccs
+            environments:
+              country: us
+              corp: hmc
+              profile: stg
+      - cluster: us-kmc-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: ccs
+            environments:
+              country: us
+              corp: kmc
+              profile: stg
+      - cluster: ca-hmc-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: ccs
+            environments:
+              country: ca
+              corp: hmc
+              profile: stg
+      - cluster: ca-kmc-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: ccs
+            environments:
+              country: ca
+              corp: kmc
+              profile: stg
+
+      - cluster: na-hmc-prd
+        pipelines:
+          - spec: spec-prd
+            namespace: us
+            environments:
+              country: us
+              corp: hmc
+              profile: prd
+          - spec: spec-prd
+            namespace: ca
+            environments:
+              country: ca
+              corp: hmc
+              profile: prd
+      - cluster: na-kmc-prd
+        pipelines:
+          - spec: spec-prd
+            namespace: us
+            environments:
+              country: us
+              corp: kmc
+              profile: prd
+          - spec: spec-prd
+            namespace: ca
+            environments:
+              country: ca
+              corp: kmc
+              profile: prd
+
+  - region: eu-central
+    targets:
+      - cluster: eu-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: hmc
+            environments:
+              country: eu
+              corp: hmc
+              profile: stg
+          - spec: spec-stg
+            namespace: kmc
+            environments:
+              country: eu
+              corp: kmc
+              profile: stg
+      - cluster: eu-prd
+        pipelines:
+          - spec: spec-prd
+            namespace: hmc
+            environments:
+              country: eu
+              corp: hmc
+              profile: prd
+          - spec: spec-prd
+            namespace: kmc
+            environments:
+              country: eu
+              corp: kmc
+              profile: prd
+
+  - region: ap-southwest
+    targets:
+      - cluster: au-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: hmc
+            environments:
+              country: au
+              corp: hmc
+              profile: stg
+          - spec: spec-stg
+            namespace: kmc
+            environments:
+              country: au
+              corp: kmc
+              profile: stg
+      - cluster: au-prd
+        pipelines:
+          - spec: spec-prd
+            namespace: hmc
+            environments:
+              country: au
+              corp: hmc
+              profile: prd
+          - spec: spec-prd
+            namespace: kmc
+            environments:
+              country: au
+              corp: kmc
+              profile: prd
+  - region: ap-northeast
+    targets:
+      - cluster: jp-stg
+        pipelines:
+          - spec: spec-stg
+            namespace: hmc
+            environments:
+              country: jp
+              corp: hmc
+              profile: stg
+      - cluster: jp-prd
+        pipelines:
+          - spec: spec-prd
+            namespace: hmc
+            environments:
+              country: jp
+              corp: hmc
+              profile: prd

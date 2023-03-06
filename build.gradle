@@ -1,0 +1,39 @@
+plugins {
+    id "com.hkmc.h2" version "1.2.25"
+}
+
+group = "com.hkmc.ccs.domain.std.std-vsm-history"
+version = "1.0.04-us4"
+
+cloudnative {
+
+    preset = "global"
+
+    microservice {
+        web = true              //Spring Web, Spring Actuator
+        webflux = true          //Spring Webflux
+        lombok = true           //Lombok
+        validate = true         //Validator
+        metric = true           //Prometheus, Actuator
+        discovery_consul = true //H2 Consul Config Guide
+        config_consul = true    //H2 Consul Config Guide
+        vault = true            //H2 Vault Guide
+    }
+
+    persistent {
+        redis = true            //Reactive Redis
+    }
+
+    thirdparty {
+        jsonpath = true         //JsonPath
+        jackson = true
+        gson = true             //Gson
+        commons_lang = true     //Commons-lang3
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.15.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}

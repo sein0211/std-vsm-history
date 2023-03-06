@@ -1,0 +1,7 @@
+      ________               _______
+      ___  __ \_____ ___   ____  __ \________ ________
+      __  / / /_  _ \__ | / /_  / / /___  __ \__  ___/
+      _  /_/ / /  __/__ |/ / / /_/ / __  /_/ /_(__  )
+      /_____/  \___/ _____/  \____/  _  .___/ /____/
+      ${AnsiColor.BRIGHT_BLUE}:: H2 Copyright by HMC R&D${AnsiColor.DEFAULT}     /_/
+      ${AnsiColor.BRIGHT_GREEN}:: Spring Boot ::${AnsiColor.BRIGHT_YELLOW}${spring-boot.formatted-version}${AnsiColor.DEFAULT}

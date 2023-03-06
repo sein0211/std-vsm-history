@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "logdate": {
+      "type": "text"
+    },
+    "log_message": {
+      "type": "text"
+    },
+    "app": {
+      "type": "text"
+    },
+    "namespace": {
+      "type": "text"
+    },
+    "classname": {
+      "type": "text"
+    }
+  }
+}
